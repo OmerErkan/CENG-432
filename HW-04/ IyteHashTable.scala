@@ -19,7 +19,7 @@ extends SymbolTable[K,V]{
 
   def set(key: String, `val`: String) {
     assert(key != null)
-    var i = hashing(key) % capacity
+    var i = javaHash(key) % capacity
     while (elements(i) != null && key != elements(i).k) {
       i = (i + 1) % capacity
 
@@ -35,7 +35,7 @@ extends SymbolTable[K,V]{
   def get(key: String): String = {
     assert(key != null)
     var result: String = "NullPointerException "
-    var i = hashing(key) % capacity
+    var i = javaHash(key) % capacity
 
     while (key != elements(i).k) {
       i = (i + 1) % capacity
@@ -61,7 +61,7 @@ extends SymbolTable[K,V]{
       if (q == null) {
 
       }
-      var i = hashing(q.k) % newCapacity
+      var i = javaHash(q.k) % newCapacity
       while (newItems(i) != null && q.k != newItems(i).k) {
         i = (i + 1) % newCapacity
       }
@@ -77,9 +77,15 @@ extends SymbolTable[K,V]{
     x == size
   }
 
-  def hashing(s: String): Int = {
-    s.charAt(0) % 5
-  }
+  def javaHash(word: String, seed: Int = 0): Int = {
+  var hash = 0
+
+  for (ch <- word.toCharArray)
+    hash = 31 * hash + ch.toInt
+
+  hash = hash ^ (hash >> 20) ^ (hash >> 12)
+  hash ^ (hash >> 7) ^ (hash >> 4)
+}
   class Pair(var k: String, var v: String) {
 
     def Pair(k: String, v: String) {
