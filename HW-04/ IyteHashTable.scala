@@ -1,6 +1,6 @@
 
-class IyteHashTable[K, V](private var maxSize: Double, private var minSize: Double, private var set: Double) 
-extends SymbolTable[K,V]{
+class IyteHashTable[K, V](private var maxSize: Double, private var minSize: Double, private var set: Double)
+  extends SymbolTable[K, V] {
   private val MIN_CAP = 11
   var size: Int = 0
   private var capacity: Int = MIN_CAP
@@ -78,14 +78,14 @@ extends SymbolTable[K,V]{
   }
 
   def javaHash(word: String, seed: Int = 0): Int = {
-  var hash = 0
+    var hash = 0
 
-  for (ch <- word.toCharArray)
-    hash = 31 * hash + ch.toInt
+    for (ch <- word.toCharArray)
+      hash = 31 * hash + ch.toInt
 
-  hash = hash ^ (hash >> 20) ^ (hash >> 12)
-  hash ^ (hash >> 7) ^ (hash >> 4)
-}
+    hash = hash ^ (hash >> 20) ^ (hash >> 12)
+    hash ^ (hash >> 7) ^ (hash >> 4)
+  }
   class Pair(var k: String, var v: String) {
 
     def Pair(k: String, v: String) {
